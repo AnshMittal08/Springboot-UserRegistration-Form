@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Details | User Registration System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        secondary: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        },
+                        accent: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            200: '#99f6e4',
+                            300: '#5eead4',
+                            400: '#2dd4bf',
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                            700: '#0f766e',
+                            800: '#115e59',
+                            900: '#134e4a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .card-shadow {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .nav-tab {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #0ea5e9;
+        }
+        
+        .user-info-item {
+            transition: all 0.3s ease;
+        }
+        
+        .user-info-item:hover {
+            background-color: rgba(240, 249, 255, 0.7);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-primary-50 to-accent-50 min-h-screen">
+    <div class="container mx-auto px-4 py-12">
+        <header class="mb-12 text-center">
+            <h1 class="text-4xl font-bold text-secondary-800 mb-2">User Registration System</h1>
+            <p class="text-secondary-600">Secure and efficient user management with Aadhaar validation</p>
+        </header>
+        
+        <div class="max-w-lg mx-auto">
+            <div class="bg-white rounded-xl card-shadow overflow-hidden">
+                <!-- Navigation Tabs -->
+                <nav class="flex border-b border-secondary-200">
+                    <a href="/register" class="nav-tab flex-1 text-center py-4 font-medium text-secondary-600 hover:bg-primary-50">
+                        Registration
+                    </a>
+                    <a href="/lookup" class="nav-tab active flex-1 text-center py-4 font-medium text-secondary-800 hover:bg-primary-50">
+                        User Lookup
+                    </a>
+                </nav>
+                
+                <!-- User Details Content -->
+                <div class="p-8">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-2xl font-semibold text-secondary-800">User Details</h2>
+                        <span class="px-3 py-1 bg-accent-100 text-accent-700 rounded-full text-sm font-medium">Verified</span>
+                    </div>
+                    
+                    <div class="space-y-1">
+                        <div class="user-info-item flex flex-col p-3 rounded-lg">
+                            <span class="text-sm text-secondary-500">Name</span>
+                            <span class="font-medium text-secondary-800 text-lg" th:text="${user.name}">John Doe</span>
+                        </div>
+                        
+                        <div class="user-info-item flex flex-col p-3 rounded-lg">
+                            <span class="text-sm text-secondary-500">Date of Birth</span>
+                            <span class="font-medium text-secondary-800 text-lg" th:text="${#temporals.format(user.dateOfBirth, 'dd-MM-yyyy')}">01-01-1990</span>
+                        </div>
+                        
+                        <div class="user-info-item flex flex-col p-3 rounded-lg">
+                            <span class="text-sm text-secondary-500">Aadhaar Number</span>
+                            <span class="font-medium text-secondary-800 text-lg" th:text="${user.aadhaarNumber}">123456789012</span>
+                        </div>
+                        
+                        <div class="user-info-item flex flex-col p-3 rounded-lg">
+                            <span class="text-sm text-secondary-500">Address</span>
+                            <span class="font-medium text-secondary-800 text-lg" th:text="${user.address}">123 Main Street, City, State, Country</span>
+                        </div>
+                        
+                        <div class="user-info-item flex flex-col p-3 rounded-lg">
+                            <span class="text-sm text-secondary-500">Occupation</span>
+                            <span class="font-medium text-secondary-800 text-lg" th:text="${user.occupation}">Software Engineer</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <a href="/lookup" class="inline-flex items-center justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition duration-300 ease-in-out transform hover:-translate-y-1">
+                            <svg class="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                            </svg>
+                            Back to lookup
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
